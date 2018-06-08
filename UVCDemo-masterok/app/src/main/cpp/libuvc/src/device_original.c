@@ -35,8 +35,10 @@
  * @defgroup device Device handling and enumeration
  */
 
+#include <unistd.h>
 #include "libuvc/libuvc.h"
 #include "libuvc/libuvc_internal.h"
+#include "../../utilbase.h"
 
 int uvc_already_open(uvc_context_t *ctx, struct libusb_device *usb_dev);
 void uvc_free_devh(uvc_device_handle_t *devh);
@@ -212,15 +214,17 @@ uvc_error_t uvc_open(
   internal_devh->usb_devh = usb_devh;
 
   ret = uvc_get_device_info(dev, &(internal_devh->info));
-
+  LOGE("uvc_get_device_info:ret=%d", ret);
   if (ret != UVC_SUCCESS)
     goto fail;
 
   /* Automatically attach/detach kernel driver on supported platforms */
+  LOGE("libusb_set_auto_detach_kernel_driver");
   libusb_set_auto_detach_kernel_driver(usb_devh, 1);
 
   UVC_DEBUG("claiming control interface %d", internal_devh->info->ctrl_if.bInterfaceNumber);
   ret = uvc_claim_if(internal_devh, internal_devh->info->ctrl_if.bInterfaceNumber);
+  LOGE("uvc_claim_if:ret=%d", ret);
   if (ret != UVC_SUCCESS)
     goto fail;
 

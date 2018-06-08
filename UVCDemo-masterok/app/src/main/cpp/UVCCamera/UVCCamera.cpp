@@ -158,6 +158,7 @@ int UVCCamera::connect(int vid, int pid, int fd, int busnum, int devaddr, const 
 		if (LIKELY(!result)) {
 			// カメラのopen処理
 			result = uvc_open(mDevice, &mDeviceHandle);
+			LOGE("uvc_open:result=%d", result);
 			if (LIKELY(!result)) {
 				// open出来た時
 #if LOCAL_DEBUG

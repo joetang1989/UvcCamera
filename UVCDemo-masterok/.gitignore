@@ -49,7 +49,7 @@ build
 
 # gedit
 *~
-
+/local.properties
 .idea/*.xml
 !.idea/codeStyleSettings.xml
 !.idea/copyright/*.xml
@@ -70,4 +70,8 @@ profiles_settings.xml
 .idea/libraries
 libuvccamera/src/main/libs
 .idea/copyright
+/.idea/workspace.xml
 .idea/scopes
+/build
+/captures
+.externalNativeBuild
